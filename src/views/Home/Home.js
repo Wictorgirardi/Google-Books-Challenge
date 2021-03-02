@@ -14,7 +14,6 @@ const Home = (props) => {
 
   const handleChange = (event, value) => {
     setcurrentPage(value);
-    handleSubmit(currentPage);
   };
 
   React.useEffect(() => {
@@ -33,7 +32,7 @@ const Home = (props) => {
           GoogleKey +
           "&startIndex=" +
           page +
-          "&maxResults=10"
+          "&maxResults=12"
       )
       .then((data) => {
         console.log(data.data.items);
@@ -54,7 +53,7 @@ const Home = (props) => {
           />
         }
       ></Header>
-      <Grid p={2} container direction="row">
+      <Grid container direction="row" alignItems="center" justify="center">
         {result.map((book) => (
           <BookCard
             title={book.volumeInfo.title}
@@ -75,7 +74,7 @@ const Home = (props) => {
         >
           <Pagination
             color="primary"
-            count={4}
+            count={10}
             page={currentPage}
             onChange={handleChange}
           />
