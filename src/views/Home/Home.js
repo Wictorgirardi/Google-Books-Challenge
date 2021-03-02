@@ -2,22 +2,38 @@ import { Header } from "components";
 import React from "react";
 import SearchBar from "material-ui-search-bar";
 import BookCard from "components/BookCard";
-import { Grid, Fade } from "@material-ui/core/";
+import { Grid } from "@material-ui/core/";
 import axios from "axios";
 import { GoogleKey } from "constants/ApiKey";
+import Pagination from "@material-ui/lab/Pagination";
 
 const Home = (props) => {
   const [searchValue, setSearchValue] = React.useState("");
   const [result, setResult] = React.useState([]);
+  const [currentPage, setcurrentPage] = React.useState(1);
 
-  function handleSubmit() {
+  const handleChange = (event, value) => {
+    setcurrentPage(value);
+    handleSubmit(currentPage);
+  };
+
+  React.useEffect(() => {
+    handleSubmit(currentPage);
+  }, [currentPage]);
+
+  function handleSubmit(page) {
+    if (page !== 1) {
+      page = page * 10;
+    }
     axios
       .get(
         "https://www.googleapis.com/books/v1/volumes?q=" +
           searchValue +
           "&key=" +
           GoogleKey +
-          "&maxResults=40"
+          "&startIndex=" +
+          page +
+          "&maxResults=10"
       )
       .then((data) => {
         console.log(data.data.items);
@@ -26,7 +42,7 @@ const Home = (props) => {
   }
 
   return (
-    <>
+    <div style={{ backgroundColor: "#f7f7f7" }}>
       <Header
         searchBar={
           <SearchBar
@@ -34,16 +50,38 @@ const Home = (props) => {
             placeholder="Pesquise seus livros favoritos!"
             value={searchValue}
             onChange={(newValue) => setSearchValue(newValue)}
-            onRequestSearch={() => handleSubmit()}
+            onRequestSearch={() => handleSubmit(currentPage)}
           />
         }
       ></Header>
       <Grid p={2} container direction="row">
         {result.map((book) => (
-          <BookCard></BookCard>
+          <BookCard
+            title={book.volumeInfo.title}
+            image={
+              book.volumeInfo.imageLinks !== undefined
+                ? book.volumeInfo.imageLinks.thumbnail
+                : ""
+            }
+          ></BookCard>
         ))}
       </Grid>
-    </>
+      {result.length !== 0 ? (
+        <Grid
+          container
+          alignItems="center"
+          justify="center"
+          style={{ padding: "20px" }}
+        >
+          <Pagination
+            color="primary"
+            count={4}
+            page={currentPage}
+            onChange={handleChange}
+          />
+        </Grid>
+      ) : null}
+    </div>
   );
 };
 
