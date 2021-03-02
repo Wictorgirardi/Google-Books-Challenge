@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
+import ModalInfo from "components/ModalInfo";
 
 const useStyles = makeStyles({
   root: {
@@ -43,9 +44,15 @@ const BookCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Ver Mais
-        </Button>
+        <ModalInfo
+          title={data.title}
+          image={data.image}
+          publisher={data.publisher}
+          pageCount={data.pageCount}
+          language={data.language}
+          description={data.description}
+          previewLink={data.previewLink}
+        ></ModalInfo>
       </CardActions>
     </Card>
   );

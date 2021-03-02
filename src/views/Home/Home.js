@@ -57,6 +57,11 @@ const Home = (props) => {
         {result.map((book) => (
           <BookCard
             title={book.volumeInfo.title}
+            publisher={book.volumeInfo.publisher}
+            pageCount={book.volumeInfo.pageCount}
+            language={book.volumeInfo.language}
+            description={book.volumeInfo.description}
+            previewLink={book.volumeInfo.previewLink}
             image={
               book.volumeInfo.imageLinks !== undefined
                 ? book.volumeInfo.imageLinks.thumbnail
