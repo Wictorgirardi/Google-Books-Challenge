@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import ModalInfo from "components/ModalInfo";
 import { CardStyles } from "./Styles.js";
+import { isNullishCoalesce } from "typescript";
 
 const BookCard = (props) => {
   const classes = CardStyles(props);
@@ -13,11 +14,15 @@ const BookCard = (props) => {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={data.image}
-          title="Contemplative Reptile"
-        />
+        {data.image ? (
+          <CardMedia
+            className={classes.media}
+            image={data.image}
+            alt="image cover"
+            title="image cover"
+          />
+        ) : <div className={classes.media}></div>}
+
         <CardContent>
           <div className={classes.title}>
             <h3>{data.title}</h3>
