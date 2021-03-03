@@ -19,7 +19,7 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
-    width: "60%",
+    width: "40%",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -52,8 +52,31 @@ const ModalInfo = (props) => {
       <Typography variant="h2" component="h2" gutterBottom>
         {props.title}
       </Typography>
-      <Typography variant="subtitle1" component="h4" gutterBottom>
-      {props.publisher}
+      <img
+        src={props.image}
+        style={{
+          display: "flex",
+          margin: "auto",
+          marginBottom: "10px",
+          marginTop: "10px",
+        }}
+      ></img>
+
+      <Typography variant="h5" component="h5" gutterBottom>
+        Descrição:{" "}
+        <span style={{ fontWeight: "300" }}> {props.description}</span>
+      </Typography>
+      <Typography variant="h5" component="h5" gutterBottom>
+        Idioma: <span style={{ fontWeight: "300" }}> {props.language}</span>
+      </Typography>
+      <Typography variant="h5" component="h5" gutterBottom>
+        Editora: <span style={{ fontWeight: "300" }}>{props.publisher} </span>
+      </Typography>
+      <Typography variant="h5" component="h5" gutterBottom>
+        Preview:{" "}
+        <a target="_blank" href={props.previewLink}>
+          {props.previewLink}
+        </a>
       </Typography>
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <div className={classes.root}>
