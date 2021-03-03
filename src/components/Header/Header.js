@@ -1,15 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core/";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
+import { HeaderStyles } from "./styles";
 
 const Header = ({ searchBar }) => {
-  const classes = useStyles();
+  const classes = HeaderStyles();
 
   return (
     <div className={classes.root}>
@@ -17,14 +11,14 @@ const Header = ({ searchBar }) => {
         container
         alignItems="center"
         justify="center"
-        style={{ width: "100%", height: "350px", backgroundColor: "#1C73E8" }}
+        className={classes.grid}
       >
-        <Grid item xs={12} style={{ textAlign: "center" }}>
+        <Grid item xs={12} className={classes.background}>
           <Typography
             variant="h1"
             component="h1"
             gutterBottom
-            style={{ color: "white" }}
+            className={classes.text}
           >
             Pesquisa Google Books
           </Typography>

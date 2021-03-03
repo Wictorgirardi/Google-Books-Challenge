@@ -1,10 +1,10 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { ModalStyles } from "./styles";
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -16,26 +16,8 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    width: "40%",
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      textAlign: "right",
-    },
-  },
-}));
-
 const ModalInfo = (props) => {
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
+  const classes = ModalStyles(props);
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
@@ -52,27 +34,23 @@ const ModalInfo = (props) => {
       <Typography variant="h2" component="h2" gutterBottom>
         {props.title}
       </Typography>
-      <img
-        src={props.image}
-        style={{
-          display: "flex",
-          margin: "auto",
-          marginBottom: "10px",
-          marginTop: "10px",
-        }}
-      ></img>
+      <img src={props.image} className={classes.image}></img>
 
       <Typography variant="h5" component="h5" gutterBottom>
-        Descrição:{" "}
-        <span style={{ fontWeight: "300" }}> {props.description}</span>
+        Descrição: <span className={classes.span}> {props.description}</span>
       </Typography>
       <Typography variant="h5" component="h5" gutterBottom>
-        Idioma: <span style={{ fontWeight: "300" }}> {props.language}</span>
+        Idioma: <span className={classes.span}> {props.language}</span>
       </Typography>
       <Typography variant="h5" component="h5" gutterBottom>
-        Editora: <span style={{ fontWeight: "300" }}>{props.publisher} </span>
+        Editora: <span className={classes.span}>{props.publisher} </span>
       </Typography>
-      <Typography variant="h5" component="h5" gutterBottom>
+      <Typography
+        variant="h5"
+        component="h5"
+        gutterBottom
+        className={classes.text}
+      >
         Preview:{" "}
         <a target="_blank" href={props.previewLink}>
           {props.previewLink}
@@ -93,8 +71,8 @@ const ModalInfo = (props) => {
       <Button size="small" color="primary" onClick={handleOpen}>
         Ver Mais
       </Button>
-
       <Modal
+        className={classes.modal}
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"

@@ -6,11 +6,13 @@ import { Grid } from "@material-ui/core/";
 import axios from "axios";
 import { GoogleKey } from "constants/ApiKey";
 import Pagination from "@material-ui/lab/Pagination";
+import { HomeStyles } from "./styles";
 
 const Home = (props) => {
   const [searchValue, setSearchValue] = React.useState("");
   const [result, setResult] = React.useState([]);
   const [currentPage, setcurrentPage] = React.useState(1);
+  const classes = HomeStyles();
 
   const handleChange = (event, value) => {
     setcurrentPage(value);
@@ -35,17 +37,16 @@ const Home = (props) => {
           "&maxResults=12"
       )
       .then((data) => {
-        console.log(data.data.items);
         setResult(data.data.items);
       });
   }
 
   return (
-    <div style={{ backgroundColor: "#f7f7f7" }}>
+    <div className={classes.background}>
       <Header
         searchBar={
           <SearchBar
-            style={{ width: "50%", display: "inline-flex", marginTop: "10px" }}
+            className={classes.searchBar}
             placeholder="Pesquise seus livros favoritos!"
             value={searchValue}
             onChange={(newValue) => setSearchValue(newValue)}
@@ -71,13 +72,9 @@ const Home = (props) => {
         ))}
       </Grid>
       {result.length !== 0 ? (
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          style={{ padding: "20px" }}
-        >
+        <Grid container alignItems="center" justify="center">
           <Pagination
+            className={classes.pagination}
             color="primary"
             count={10}
             page={currentPage}

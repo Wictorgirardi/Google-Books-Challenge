@@ -1,26 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import ModalInfo from "components/ModalInfo";
-
-const useStyles = makeStyles({
-  root: {
-    width: 200,
-    height: 300,
-    margin: "20px",
-  },
-  media: {
-    height: 140,
-  },
-});
+import { CardStyles } from "./Styles.js";
 
 const BookCard = (props) => {
-  const classes = useStyles();
+  const classes = CardStyles(props);
   const data = props;
   return (
     <Card className={classes.root}>
@@ -31,15 +19,8 @@ const BookCard = (props) => {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <div
-            style={{
-              height: "70px",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {" "}
-            <h3>{data.title}</h3>{" "}
+          <div className={classes.title}>
+            <h3>{data.title}</h3>
           </div>
         </CardContent>
       </CardActionArea>
